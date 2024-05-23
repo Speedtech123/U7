@@ -1,0 +1,17 @@
+clear
+echo -n "enter the login name of the use:"
+read login
+period=0
+echo -n "enter the unit of time (min):"
+read min
+ until who | grep -w "$login" >/dev/null
+ do
+ sleep 60
+ period=`expr $period + 1`
+ if [ $period -gt $min ]
+ then
+ echo "User:$login has not logged in since $min minutes."
+ exit
+ fi
+ done
+echo "User:$login has now logged in."
